@@ -1,19 +1,105 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Clone{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/instagram-style.css' %}">
 </head>
 <body>
+    {% if user.is_authenticated %}
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'inicio' %}" class="nav-logo">Django</a>
+            <div class="nav-links">
+                <a href="{% url 'inicio' %}" class="nav-link">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-search"></i> Buscar
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-plus-square"></i> Crear
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user"></i> {{ user.username }}
+                </a>
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
 
-    <h1 style="color:red">ESTE ES EL TEMPLATE CORRECTO</h1>
-
-    <h1>
-        Hola Mundo {{ name }} <br>
-        Correo: {{ email }} <br>
-        Edad: {{ age }} <br>
-        {{ resumen }}
-    </h1>
-
+    {% block content %}
+    <div class="container">
+        <div class="feed-container">
+            <h1 class="logo">Django</h1>
+            <h2 style="text-align: center; color: #8e8e8e; margin: 20px 0;">
+                Bienvenido, {{ name|default:user.username }}!
+            </h2>
+            
+            {% if products %}
+                {% for product in products %}
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar">{{ name|default:user.username|first|upper }}</div>
+                        <a href="#" class="username">{{ name|default:user.username }}</a>
+                    </div>
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="post-image">
+                    {% endif %}
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="far fa-heart"></i></button>
+                        <button class="action-btn"><i class="far fa-comment"></i></button>
+                        <button class="action-btn"><i class="far fa-paper-plane"></i></button>
+                        <button class="action-btn" style="margin-left: auto;"><i class="far fa-bookmark"></i></button>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-likes">{{ product.likes|default:0 }} Me gusta</div>
+                        <div class="post-caption">
+                            <strong>{{ name|default:user.username }}</strong>
+                            {{ product.description|default:product.name|default:"Producto sin descripción" }}
+                        </div>
+                        <div class="post-time">HACE MOMENTOS</div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar">{{ name|default:user.username|first|upper }}</div>
+                        <a href="#" class="username">{{ name|default:user.username }}</a>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-caption">
+                            <strong>{{ name|default:user.username }}</strong>
+                            ¡Bienvenido a Django! Aquí aparecerán tus publicaciones.
+                        </div>
+                        <div class="post-time">HACE MOMENTOS</div>
+                    </div>
+                </div>
+            {% endif %}
+            
+            <div style="text-align: center; margin: 40px 0; color: #8e8e8e;">
+                <p><strong>{{ email|default:user.email }}</strong></p>
+                <p>Edad: {{ age|default:"N/A" }}</p>
+                {% for item in resumen %}
+                    <p>{{ item }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
 </body>
 </html>

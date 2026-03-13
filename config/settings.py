@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-1zvxzirsgtiz38ltjy7av5+m4txb%ti%823)_f6iizm%lh$id%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'users'
 ]
 
@@ -116,3 +117,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Configuración de email para desarrollo (password reset)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jairmartinezlopez2004@gmail.com'  # Reemplaza con tu email
+EMAIL_HOST_PASSWORD = 'ktje rpsy jgaj nfal'  # Reemplaza con tu contraseña de aplicación
+DEFAULT_FROM_EMAIL = 'jairmartinezlopez2004@gmail.com' # Reemplaza con tu email
+
+# Configuración adicional para evitar problemas de codificación
+DEFAULT_CHARSET = 'utf-8'
+
+# Configuración del sitio para emails
+SITE_NAME = 'Mi Proyecto Django'
+SITE_ID = 1

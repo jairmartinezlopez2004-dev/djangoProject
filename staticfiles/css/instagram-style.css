@@ -1,0 +1,335 @@
+/* Instagram-style CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fafafa;
+    color: #262626;
+    line-height: 1.4;
+}
+
+/* Container */
+.container {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Login/Register Box */
+.auth-box {
+    background: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 1px;
+    padding: 40px 40px 20px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Logo */
+.logo {
+    font-size: 40px;
+    font-weight: 600;
+    color: #262626;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Billabong', cursive;
+}
+
+.logo-small {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 6px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 9px 0 7px 8px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    background-color: #fafafa;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    border-color: #999;
+    background-color: white;
+}
+
+.form-input::placeholder {
+    color: #8e8e8e;
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 8px;
+}
+
+.btn-primary {
+    background-color: #0095f6;
+    color: white;
+}
+
+.btn-primary:hover {
+    opacity: 0.8;
+}
+
+.btn-primary:disabled {
+    background-color: #b2dffc;
+    opacity: 1;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #0095f6;
+    border: 1px solid transparent;
+}
+
+.btn-secondary:hover {
+    opacity: 0.8;
+}
+
+/* Links */
+.link {
+    color: #0095f6;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #8e8e8e;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #dbdbdb;
+}
+
+.divider span {
+    padding: 0 20px;
+}
+
+/* Error messages */
+.error {
+    color: #ed4956;
+    font-size: 12px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.success {
+    color: #00a400;
+    font-size: 12px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Auth Box Footer */
+.auth-box-footer {
+    background: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 1px;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+}
+
+.auth-box-footer a {
+    color: #0095f6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-box-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Password reset specific */
+.password-reset-form {
+    width: 100%;
+}
+
+.reset-instructions {
+    font-size: 14px;
+    color: #8e8e8e;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Navigation */
+.navbar {
+    background-color: white;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 975px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 28px;
+    font-weight: 600;
+    color: #262626;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    color: #262626;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav-link:hover {
+    color: #0095f6;
+}
+
+/* Feed */
+.feed-container {
+    max-width: 614px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.post {
+    background: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    margin-bottom: 24px;
+}
+
+.post-header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #0095f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+.username {
+    font-weight: 600;
+    color: #262626;
+    text-decoration: none;
+}
+
+.username:hover {
+    text-decoration: underline;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+}
+
+.post-actions {
+    padding: 8px 16px;
+    display: flex;
+    gap: 16px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #262626;
+}
+
+.post-content {
+    padding: 0 16px 16px;
+}
+
+.post-likes {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.post-caption {
+    margin-bottom: 8px;
+}
+
+.post-caption strong {
+    margin-right: 8px;
+}
+
+.post-time {
+    color: #8e8e8e;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .auth-box {
+        padding: 20px;
+    }
+    
+    .logo {
+        font-size: 32px;
+    }
+}
