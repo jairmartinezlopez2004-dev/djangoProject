@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes • Django</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/instagram-style.css' %}">
+</head>
+<body>
+    {% include 'base.html' %}
+    
+    <div class="container" style="margin-top: 80px;">
+        <div class="auth-box">
+            <h2 style="text-align: center; margin-bottom: 20px;">Pacientes</h2>
+            
+            {% if perms.custumers.add_paciente %}
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="{% url 'paciente_create' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Nuevo Paciente
+                </a>
+            </div>
+            {% endif %}
+            
+            {% if pacientes %}
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <thead>
+                    <tr style="background: #f5f5f5;">
+                        <th style="padding: 10px; text-align: left;">Nombre</th>
+                        <th style="padding: 10px; text-align: left;">Teléfono</th>
+                        <th style="padding: 10px; text-align: left;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paciente in pacientes %}
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">{{ paciente.nombre_completo }}</td>
+                        <td style="padding: 10px;">{{ paciente.telefono|default:"N/A" }}</td>
+                        <td style="padding: 10px;">
+                            <a href="{% url 'paciente_detail' paciente.pk %}" class="link">Ver</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align: center; color: #8e8e8e; margin-top: 20px;">No hay pacientes registrados.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

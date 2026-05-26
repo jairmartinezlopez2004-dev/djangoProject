@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth.views import (
     LoginView, LogoutView, PasswordResetView, PasswordResetDoneView,
     PasswordResetConfirmView, PasswordResetCompleteView
@@ -32,6 +32,8 @@ urlpatterns = [
     path('password-reset-complete/', PasswordResetCompleteView.as_view(
         template_name='registration/password_reset_complete.html'
     ), name='password_reset_complete'),
+    # URLs del módulo custumers (sistema médico)
+    path('', include('custumers.urls')),
 ]
 
 if settings.DEBUG:

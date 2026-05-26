@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citas • Django</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/instagram-style.css' %}">
+</head>
+<body>
+    {% include 'base.html' %}
+    
+    <div class="container" style="margin-top: 80px;">
+        <div class="auth-box">
+            <h2 style="text-align: center; margin-bottom: 20px;">Citas</h2>
+            
+            {% if perms.custumers.add_cita %}
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="{% url 'cita_create' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Nueva Cita
+                </a>
+            </div>
+            {% endif %}
+            
+            {% if citas %}
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <thead>
+                    <tr style="background: #f5f5f5;">
+                        <th style="padding: 10px; text-align: left;">Paciente</th>
+                        <th style="padding: 10px; text-align: left;">Fecha</th>
+                        <th style="padding: 10px; text-align: left;">Estado</th>
+                        <th style="padding: 10px; text-align: left;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cita in citas %}
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 10px;">{{ cita.paciente.nombre_completo }}</td>
+                        <td style="padding: 10px;">{{ cita.fecha|date:"Y-m-d H:i" }}</td>
+                        <td style="padding: 10px;">
+                            <span style="padding: 3px 8px; border-radius: 3px; font-size: 12px;
+                                {% if cita.estado == 'programada' %}background: #fff3e0; color: #e65100;{% endif %}
+                                {% if cita.estado == 'confirmada' %}background: #e8f5e9; color: #2e7d32;{% endif %}
+                                {% if cita.estado == 'completada' %}background: #e3f2fd; color: #1565c0;{% endif %}
+                                {% if cita.estado == 'cancelada' %}background: #ffebee; color: #c62828;{% endif %}">
+                                {{ cita.get_estado_display }}
+                            </span>
+                        </td>
+                        <td style="padding: 10px;">
+                            {% if perms.custumers.change_cita %}
+                            <a href="{% url 'cita_update' cita.pk %}" class="link">Editar</a>
+                            {% endif %}
+                            {% if perms.custumers.delete_cita %}
+                            <a href="{% url 'cita_delete' cita.pk %}" class="link">Eliminar</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align: center; color: #8e8e8e; margin-top: 20px;">No hay citas registradas.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

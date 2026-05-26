@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Denegado • Django</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/instagram-style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-box">
+            <div style="text-align: center; margin: 30px 0;">
+                <i class="fas fa-lock" style="font-size: 48px; color: #ed4956; margin-bottom: 20px;"></i>
+            </div>
+            
+            <h2 style="text-align: center; margin-bottom: 20px;">Acceso Denegado</h2>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <p style="color: #8e8e8e; line-height: 1.5;">
+                    No tienes permisos suficientes para acceder a esta página.
+                </p>
+                <p style="color: #8e8e8e; line-height: 1.5; margin-top: 10px;">
+                    Si crees que esto es un error, contacta al administrador del sistema.
+                </p>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p style="color: #8e8e8e; font-size: 13px;">
+                    Tu rol actual: {% for group in user.groups.all %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% empty %}Sin rol asignado{% endfor %}
+                </p>
+            </div>
+            
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">Ir al Dashboard</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary" style="margin-top: 10px; display: block;">Cerrar Sesión</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -13,23 +13,42 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="{% url 'inicio' %}" class="nav-logo">Django</a>
+            <a href="{% url 'dashboard' %}" class="nav-logo">Django</a>
             <div class="nav-links">
+                <a href="{% url 'dashboard' %}" class="nav-link">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                
+                <!-- Menú de Pacientes - Solo Admin y Recepcionista -->
+                {% if perms.custumers.view_paciente %}
+                <a href="{% url 'paciente_list' %}" class="nav-link">
+                    <i class="fas fa-users"></i> Pacientes
+                </a>
+                {% endif %}
+                
+                <!-- Menú de Citas - Admin, Recepcionista, Doctor, Paciente -->
+                {% if perms.custumers.view_cita %}
+                <a href="{% url 'cita_list' %}" class="nav-link">
+                    <i class="fas fa-calendar"></i> Citas
+                </a>
+                {% endif %}
+                
+                <!-- Menú de Consultas - Admin y Doctor -->
+                {% if perms.custumers.view_consulta %}
+                <a href="{% url 'consulta_list' %}" class="nav-link">
+                    <i class="fas fa-notes-medical"></i> Consultas
+                </a>
+                {% endif %}
+                
+                <!-- Menú de Productos - Solo para demostración -->
                 <a href="{% url 'inicio' %}" class="nav-link">
-                    <i class="fas fa-home"></i> Inicio
+                    <i class="fas fa-box"></i> Productos
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-search"></i> Buscar
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-plus-square"></i> Crear
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-heart"></i>
-                </a>
+                
                 <a href="#" class="nav-link">
                     <i class="fas fa-user"></i> {{ user.username }}
                 </a>
+                
                 <form method="post" action="{% url 'logout' %}" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">

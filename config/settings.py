@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'users'
+    'users',
+    'custumers'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,11 @@ DEFAULT_CHARSET = 'utf-8'
 # Configuración del sitio para emails
 SITE_NAME = 'Mi Proyecto Django'
 SITE_ID = 1
+
+# Configuración de autenticación y permisos
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/inicio/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+# Configuración de página 403 (Acceso denegado)
+# Esto se usará cuando un usuario no tenga permisos suficientes

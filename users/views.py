@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from users.models import Product
 from .forms import RegisterForm
 
@@ -9,7 +10,12 @@ def get_user(request):
     return HttpResponse("<h1>Hello World!</h1>")
 
 
+@login_required
 def inicio(request):
+    """
+    Vista de inicio - Requiere login
+    Muestra productos y información del usuario
+    """
     products = Product.objects.all()
     context = {
         "name": "Jair",

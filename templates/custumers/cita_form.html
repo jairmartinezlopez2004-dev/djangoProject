@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Cita • Django</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/instagram-style.css' %}">
+</head>
+<body>
+    {% include 'base.html' %}
+    
+    <div class="container" style="margin-top: 80px;">
+        <div class="auth-box">
+            <h2 style="text-align: center; margin-bottom: 20px;">Nueva Cita</h2>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 5px; color: #8e8e8e;">Paciente:</label>
+                    <select name="paciente" class="form-input" required>
+                        <option value="">Seleccione un paciente</option>
+                        {% for paciente in pacientes %}
+                        <option value="{{ paciente.pk }}">{{ paciente.nombre_completo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 5px; color: #8e8e8e;">Doctor:</label>
+                    <select name="doctor" class="form-input">
+                        <option value="">Sin asignar</option>
+                        {% for doctor in doctores %}
+                        <option value="{{ doctor.pk }}">{{ doctor.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 5px; color: #8e8e8e;">Fecha y Hora:</label>
+                    <input type="datetime-local" name="fecha" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 5px; color: #8e8e8e;">Motivo:</label>
+                    <textarea name="motivo" class="form-input" placeholder="Motivo de la cita" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Cita</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="{% url 'cita_list' %}" class="link">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

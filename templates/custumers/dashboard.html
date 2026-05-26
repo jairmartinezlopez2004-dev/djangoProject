@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard • Django</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/instagram-style.css' %}">
+</head>
+<body>
+    {% include 'base.html' %}
+    
+    <div class="container" style="margin-top: 80px;">
+        <div class="auth-box">
+            <h2 style="text-align: center; margin-bottom: 20px;">Dashboard</h2>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p style="color: #8e8e8e;">Bienvenido, {{ user.username }}</p>
+                <p style="color: #8e8e8e; font-size: 13px; margin-top: 10px;">
+                    Tu rol: {% for group in user_groups %}{{ group.name }}{% if not forloop.last %}, {% endif %}{% empty %}Sin rol asignado{% endfor %}
+                </p>
+            </div>
+            
+            {% if is_admin %}
+            <div style="background: #e8f5e9; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h3 style="color: #2e7d32; margin-bottom: 10px;">📊 Estadísticas Generales</h3>
+                <p>Total de Pacientes: {{ total_pacientes }}</p>
+                <p>Total de Citas: {{ total_citas }}</p>
+                <p>Total de Consultas: {{ total_consultas }}</p>
+            </div>
+            {% endif %}
+            
+            {% if is_recepcionista %}
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h3 style="color: #1565c0; margin-bottom: 10px;">📅 Gestión de Citas</h3>
+                <p>Citas hoy: {{ citas_hoy }}</p>
+                <p>Citas pendientes: {{ citas_pendientes }}</p>
+            </div>
+            {% endif %}
+            
+            {% if is_doctor %}
+            <div style="background: #fff3e0; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h3 style="color: #e65100; margin-bottom: 10px;">👨‍⚕️ Mis Consultas</h3>
+                <p>Citas asignadas: {{ mis_citas }}</p>
+                <p>Consultas realizadas: {{ mis_consultas }}</p>
+            </div>
+            {% endif %}
+            
+            {% if is_paciente %}
+            <div style="background: #f3e5f5; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h3 style="color: #7b1fa2; margin-bottom: 10px;">🏥 Mi Historial</h3>
+                <p>Mis citas: {{ mis_citas }}</p>
+                <p>Mis consultas: {{ mis_consultas }}</p>
+            </div>
+            {% endif %}
+            
+            <div style="margin-top: 20px; text-align: center;">
+                {% if perms.custumers.view_paciente %}
+                <a href="{% url 'paciente_list' %}" class="btn btn-primary" style="margin-bottom: 10px;">Ver Pacientes</a>
+                {% endif %}
+                
+                {% if perms.custumers.view_cita %}
+                <a href="{% url 'cita_list' %}" class="btn btn-primary" style="margin-bottom: 10px;">Ver Citas</a>
+                {% endif %}
+                
+                {% if perms.custumers.view_consulta %}
+                <a href="{% url 'consulta_list' %}" class="btn btn-primary" style="margin-bottom: 10px;">Ver Consultas</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
